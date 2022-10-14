@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import { getAuth, signInWithCustomToken } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 
-async function idTokenFromCustomToken(firebaseConfig, customToken) {
+export async function idTokenFromCustomToken(firebaseConfig, customToken) {
   const fb_app = initializeApp(firebaseConfig);
   const auth = getAuth(fb_app);
   const userCredential = await signInWithCustomToken(auth, customToken);
@@ -11,15 +11,7 @@ async function idTokenFromCustomToken(firebaseConfig, customToken) {
   return user.getIdToken();
 }
 
-const app = express();
-const port = process.env.port || 3000;
-app.use(bodyParser.json());
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-app.post("/token", async (req, res) => {
+export const tokenHandler = async (req, res) => {
   const firebaseConfig = req.body.firebaseConfig;
   const customToken = req.body.customToken;
   try {
@@ -30,8 +22,20 @@ app.post("/token", async (req, res) => {
     res.statusCode = 500;
     res.send({ error: error.message });
   }
+};
+
+/*
+const app = express();
+const port = process.env.port || 3000;
+app.use(bodyParser.json());
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
+
+app.post("/token", tokenHandler);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+*/
