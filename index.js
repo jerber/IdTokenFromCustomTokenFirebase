@@ -1,3 +1,4 @@
+import { api } from "@serverless/cloud";
 import express from "express";
 import bodyParser from "body-parser";
 import { getAuth, signInWithCustomToken } from "firebase/auth";
@@ -24,18 +25,25 @@ export const tokenHandler = async (req, res) => {
   }
 };
 
-/*
-const app = express();
-const port = process.env.port || 3000;
-app.use(bodyParser.json());
+const DEPLOY_TYPE = "SERVERLESS_CLOUD";
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+if (DEPLOY_TYPE == "SERVERLESS_CLOUD") {
+  api.get("/", (req, res) => {
+    res.send("Hello World");
+  });
+  api.post("/token", tokenHandler);
+} else {
+  const app = express();
+  const port = process.env.port || 3000;
+  app.use(bodyParser.json());
 
-app.post("/token", tokenHandler);
+  app.get("/", (req, res) => {
+    res.send("Hello World!");
+  });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
-*/
+  app.post("/token", tokenHandler);
+
+  app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
+  });
+}
