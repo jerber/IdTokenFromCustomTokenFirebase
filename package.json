@@ -11,9 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@serverless/cloud": "^2.11.6",
     "express": "^4.18.2",
-    "firebase": "^9.12.1",
-    "serverless/cloud": "^2.11.6"
+    "firebase": "^9.12.1"
   },
   "serverless": {
     "app": "id-token-from-custom-token",
