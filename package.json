@@ -13,7 +13,7 @@
   "dependencies": {
     "express": "^4.18.2",
     "firebase": "^9.12.1",
-    "serverless/cloud": "*"
+    "serverless/cloud": "^2.11.6"
   },
   "serverless": {
     "app": "id-token-from-custom-token",
