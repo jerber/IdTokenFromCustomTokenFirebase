@@ -25,7 +25,7 @@ export const tokenHandler = async (req, res) => {
   }
 };
 
-const DEPLOY_TYPE = "SERVERLESS_CLOUD";
+const DEPLOY_TYPE = process.env.DEPLOY_TYPE || "SERVERLESS_CLOUD";
 
 if (DEPLOY_TYPE == "SERVERLESS_CLOUD") {
   api.get("/", (req, res) => {
