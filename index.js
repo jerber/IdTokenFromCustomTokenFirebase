@@ -9,6 +9,7 @@ export async function idTokenFromCustomToken(firebaseConfig, customToken) {
   const auth = getAuth(fb_app);
   const userCredential = await signInWithCustomToken(auth, customToken);
   const user = userCredential.user;
+  fb_app.delete();
   return user.getIdToken();
 }
 
